@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <title>Aufgabenliste-App</title>
+    <script>
+      function einfügenAufgabe() {
+        var neueAufgabe = document.createElement("div");
+        neueAufgabe.innerHTML = document.getElementById("Feld").value;
+        neueAufgabe.onclick = entfernenAufgabe;
+        document.getElementById("Liste").appendChild(neueAufgabe);
+        speichernListe();
+       }
+       function entfernenAufgabe() {
+         document.getElementById("Liste").removeChild(this);
+         speichernListe();
+       }
+       function speichernListe() {
+       localStorage.gespeicherteListe = document.getElementById("Liste").innerHTML;
+       }
+       function ladenListe() {
+         document.getElementById("Liste").innerHTML = localStorage.gespeicherteListe;
+         for(var i = 0; i < Liste.children.length; i++) {
+           Liste.children[i].onclick = entfernenAufgabe;
+       }
+     }
+    </script>
+</head>
+<body>
+   <p>Juwelier Volkov</p>
+   <p>Aufgaben für Sonderausstellung</p>
+   <br/>
+   <input type="text" id="Feld" value="Aufgabe eintippen"/>
+   <br/>
+   <input type="button" value="Einfügen" onclick="einfügenAufgabe();"/>
+   <br/>
+   <div id="Liste"></div>
+   <script>
+     if(localStorage.gespeicherteListe) {
+       ladenListe();
+     }
+   </script>
+</body>
+</html>
