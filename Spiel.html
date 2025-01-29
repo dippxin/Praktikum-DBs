@@ -3,7 +3,21 @@
 <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <title>Poppy Playtime Chapter X</title>
+    <script>
+        var zähler = 1000;
+        function updateZähler() {
+           zähler = zähler - 1;
+           document.getElementById("zahl").innerHTML = zähler;
+           setTimeout(updateZähler, 1000);
+         }
+    </script>
+ 
 </head>
 <body>
-    
+    <div id="zahl">
+    </div>
+    <script>
+       updateZähler();
+    </script>
 </body>
+</html>
