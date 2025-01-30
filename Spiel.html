@@ -1,23 +1,87 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-    <title>Poppy Playtime Chapter X</title>
-    <script>
-        var zähler = 1000;
-        function updateZähler() {
-           zähler = zähler - 1;
-           document.getElementById("zahl").innerHTML = zähler;
-           setTimeout(updateZähler, 1000);
-         }
-    </script>
- 
+    <meta http-equiv="content-type" 
+        content="text/html; charset=utf-8"/>
+    <title>Sicherheitsspiel</title>
+    <style>
+     #spielFeld {
+       background: url('GameBackground.jpg');
+       background-size: cover;
+       border: 1px solid black;
+       height: 350px;
+       width: 650px;
+    }
+     .person {
+       background: url('Guest.jpg');
+       background-size: cover;
+       width: 120px;
+       height: 120px;
+       padding: 10px;
+       margin: 10px;
+       float: left;
+       display: none;
+    }
+     .dieb {
+       background: url('Thief.jpg');
+       background-size: cover;
+    }
+     .versteckt {
+       display: none;
+    }
+     .sichtbar {
+       display: block;
+    }
+   </style>
 </head>
+
 <body>
-    <div id="zahl">
-    </div>
-    <script>
-       updateZähler();
-    </script>
+   <input type="button" value="Spielen" onclick="startSpiel();"/>
+   <div id="spielFeld">
+     <div class="person">1</div>
+     <div class="person">2</div>
+     <div class="person">3</div>
+     <div class="person">4</div>
+     <div class="person">5</div>
+     <div class="person">6</div>
+     <div class="person">7</div>
+     <div class="person">8</div>
+   </div>
+   <script>
+     function startSpiel() {
+        spielSchleife();
+     }
+     var zähler = 0;
+     var personenSichtbar = false;
+     var punktestand = 0;
+     function spielSchleife() {
+       personenSichtbar = !personenSichtbar;
+       erstellePersonen();
+       zähler++;
+       if(zähler < 12) {
+           setTimeout(spielSchleife, personenSichtbar ? 1000 : 3000);
+       }
+       else {
+         alert("Deine Punkte: " + punktestand);
+       }      
+     }
+     function erstellePersonen() {
+       var spielFeld = document.getElementById("spielFeld");
+       var zuSetzendeKlasse = personenSichtbar ? "person sichtbar" : "person versteckt";
+       for(var index = 0; index < 8; index ++) {
+         spielFeld.children[index].className = zuSetzendeKlasse;
+         spielFeld.children[index].innerHTML = "";
+         spielFeld.children[index].onclick = function(){ 
+               punktestand += -2; };  
+       }
+       var zufallszahl = Math.floor(Math.random() * 8);
+       spielFeld.children[zufallszahl].innerHTML = "";
+       spielFeld.children[zufallszahl].onclick = function() { 
+               punktestand++; };
+       spielFeld.children[zufallszahl].className = zuSetzendeKlasse + " dieb";
+    }
+
+   </script>
+
 </body>
 </html>
