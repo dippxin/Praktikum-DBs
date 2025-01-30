@@ -44,8 +44,6 @@
      <div class="person">4</div>
      <div class="person">5</div>
      <div class="person">6</div>
-     <div class="person">7</div>
-     <div class="person">8</div>
    </div>
    <script>
      function startSpiel() {
@@ -68,13 +66,13 @@
      function erstellePersonen() {
        var spielFeld = document.getElementById("spielFeld");
        var zuSetzendeKlasse = personenSichtbar ? "person sichtbar" : "person versteckt";
-       for(var index = 0; index < 8; index ++) {
+       for(var index = 0; index < 6; index ++) {
          spielFeld.children[index].className = zuSetzendeKlasse;
          spielFeld.children[index].innerHTML = "";
          spielFeld.children[index].onclick = function(){ 
                punktestand += -2; };  
        }
-       var zufallszahl = Math.floor(Math.random() * 8);
+       var zufallszahl = Math.floor(Math.random() * 6);
        spielFeld.children[zufallszahl].innerHTML = "";
        spielFeld.children[zufallszahl].onclick = function() { 
                punktestand++; };
